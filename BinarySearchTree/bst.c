@@ -24,7 +24,7 @@ tNodo
 	nodo->direita  = NULL ;
 	nodo->pai      = NULL ;
 	nodo->chave    = chave;
-	nodo->altura   = -1;
+	nodo->altura   = 0;
 	return nodo;
 }
 //------------------
@@ -34,7 +34,7 @@ emOrdem(tNodo *nodo)
 	if (nodo != NULL)
 	{
 		emOrdem(nodo->esquerda);
-		printf("%d ", nodo->chave);
+		printf("chave = %d \t| ponteiro = %08x \t| pai = %08x \t| esquerda = %08x \t| direita = %08x\n", nodo->chave,nodo, nodo->pai,nodo->esquerda, nodo->direita);
 		emOrdem(nodo->direita);
 	}
 }
@@ -68,6 +68,7 @@ tNodo
 tNodo
 *antecessor(tNodo *nodo)
 {
+/*
 	tNodo *nodoAntecessor = NULL;
 	if (nodo == NULL)
 		return nodo;
@@ -77,6 +78,20 @@ tNodo
 	{
 		nodoAntecessor = nodo->pai;
 	}
+	return nodoAntecessor;
+*/
+	tNodo *nodoAntecessor = NULL;
+
+	if (nodo->esquerda != NULL)
+		return (maximo(nodo->esquerda));
+
+	nodoAntecessor = nodo->pai;
+	while(nodoAntecessor != NULL && nodo == nodoAntecessor->esquerda)
+	{
+		nodo = nodoAntecessor;
+		nodoAntecessor = nodoAntecessor->pai;
+	}
+
 	return nodoAntecessor;
 }
 	
@@ -102,14 +117,16 @@ tNodo
 		if (nodo->esquerda == NULL)
 		{
 			tNodo *filhoDireita = nodo->direita;
-			//filhoDireita->pai = nodo->pai;
+			if (filhoDireita) 
+				filhoDireita->pai = nodo->pai;
 			free(nodo);
 			return filhoDireita;
 		}
 		else if (nodo->direita == NULL) 
 		{
 			tNodo *filhoEsquerda = nodo->esquerda;
-			//filhoEsquerda->pai = nodo->pai;
+			//if (filhoEsquerda)
+				filhoEsquerda->pai = nodo->pai;
 			free(nodo);
 			return filhoEsquerda;
 		}
@@ -135,22 +152,24 @@ int main(void)
 	inserir(raiz,30);
 	inserir(raiz, 5);
 	inserir(raiz,45);
+	inserir(raiz, 3);
 
 	emOrdem(raiz);
 	putchar('\n');
-	
+
+	printf("EXCLUINDO 10\n");
 	excluir(raiz, 10);
 	emOrdem(raiz);
 	putchar('\n');
+	printf("EXCLUINDO 15\n");
 	excluir(raiz,15);
 	emOrdem(raiz);
 	putchar('\n');
-	excluir(raiz,10);
-	emOrdem(raiz);
-	putchar('\n');
+	printf("EXCLUINDO 30\n");
 	excluir(raiz,30);
 	emOrdem(raiz);
 	putchar('\n');
+	printf("EXCLUINDO 45\n");
 	excluir(raiz,45);
 	emOrdem(raiz);
 	putchar('\n');
