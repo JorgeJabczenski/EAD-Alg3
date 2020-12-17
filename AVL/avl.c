@@ -15,7 +15,7 @@ struct nodo
     n->chave = chave;
     n->esq   = NULL;
     n->dir   = NULL;
-    n->fb    = 0;
+    n->altura= 0;
     return n;
 }
 
@@ -39,8 +39,8 @@ preOrdem(struct nodo *n)
 {
     if (n != NULL){
         printf("%d ", n->chave);
-        emOrdem(n->esq);
-        emOrdem(n->dir);
+        preOrdem(n->esq);
+        preOrdem(n->dir);
     }
 }
 
@@ -58,8 +58,8 @@ void
 posOrdem(struct nodo *n)
 {
     if (n != NULL){
-        emOrdem(n->esq);
-        emOrdem(n->dir);
+        posOrdem(n->esq);
+        posOrdem(n->dir);
         printf("%d ", n->chave);
     }
 }

@@ -229,28 +229,24 @@ tNodo
 	// Achou o nodo que vai ser deletado
 	else
 	{
-		// Caso o nodo tenha apenas um dos filhos, tratar os dois casos
-		if (nodo->esquerda == NULL)
+		if(nodo->esquerda == NULL || nodo->direita == NULL)
 		{
-			tNodo *filhoDireita = nodo->direita;
-			if (filhoDireita) 
-				filhoDireita->pai = nodo->pai;
-			free(nodo);
-			return filhoDireita;
-		}
-		else if (nodo->direita == NULL) 
-		{
-			tNodo *filhoEsquerda = nodo->esquerda;
-			if (filhoEsquerda)
-				filhoEsquerda->pai = nodo->pai;
-			free(nodo);
-			return filhoEsquerda;
-		}
-		// O nodo tem os dois filhos, substituir pelo antecessor
-		else 
-		{	tNodo *nodoAntecessor = antecessor(nodo);
-			nodo->chave = nodoAntecessor->chave;
-			nodo->esquerda = excluir(nodo->esquerda, nodo->chave);
+			tNodo *temp = nodo->esquerda ? nodo->esquerda : nodo->direita;
+			if (temp == NULL)
+			{
+				temp = nodo;
+				nodo = NULL;
+			}
+			else
+			{
+				*nodo = *temp;
+			}
+			free(temp);
+			
+		} else {
+			tNodo *temp = antecessor(nodo->esquerda);
+			nodo->chave = temp->chave;
+			nodo->esquerda = excluir(nodo->esquerda, temp->chave);
 		}
 	}
 
