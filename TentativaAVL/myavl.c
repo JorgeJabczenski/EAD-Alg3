@@ -9,7 +9,11 @@ main(void)
 {   
     tNodo *raiz = NULL;
     
-    raiz = lerEntrada(raiz);
+    /* Le o arquivo redirecionado para ao programa */
+    raiz = lerEntrada(raiz); 
+
+    /* Imprimi os nodos com sua chave e nivel separados por vírgula */
     nivel(raiz,0);
+
     return EXIT_SUCCESS;
 }

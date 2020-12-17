@@ -1,3 +1,6 @@
+/* GRR20190372 & GRR20190367 */
+/* jlvj19      &      vtvd19 */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "libAVL.h"
@@ -30,7 +33,7 @@ emOrdem(tNodo *nodo)
     if (nodo != NULL)
     {
         emOrdem(nodo->esquerda);
-        printf("Chave = %03d | Pt = %08xu | Esq = %08x | Dir = %08x | H = %d |\n", nodo->chave, nodo, nodo->esquerda, nodo->direita, nodo->altura);
+        printf("Chave = %d ", nodo->chave);
         emOrdem(nodo->direita);
     }
 }
@@ -112,9 +115,6 @@ tNodo
 tNodo
 *balancearAVL(tNodo *nodo)
 {
-    /* Arruma a altura dos nodos e o fator de balanceamento em seguida */
-    nodo->altura = maior(altura(nodo->direita), altura(nodo->esquerda)) + 1;
-    
     int fatorB = fatorBalanceamento(nodo);
 
     /* Desbalanceado para a Direita */
@@ -151,6 +151,9 @@ tNodo
         nodo->esquerda = inserir(nodo->esquerda, chave);
     else 
         nodo->direita  = inserir(nodo->direita,  chave);
+
+    /* Arruma a altura dos nodos e o fator de balanceamento em seguida */
+    nodo->altura = maior(altura(nodo->direita), altura(nodo->esquerda)) + 1;
 
     return balancearAVL(nodo);
 }
@@ -193,5 +196,8 @@ tNodo
         }
     }
 
+    /* Arruma a altura dos nodos e o fator de balanceamento em seguida */
+    nodo->altura = maior(altura(nodo->direita), altura(nodo->esquerda)) + 1;
+    
     return balancearAVL(nodo);
 }

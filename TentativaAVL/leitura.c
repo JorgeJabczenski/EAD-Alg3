@@ -3,6 +3,7 @@
 #include "libAVL.h"
 #include "leitura.h"
 
+/* Le o arquivo redirecionado para ao programa */
 tNodo 
 *lerEntrada(tNodo *nodo)
 {
