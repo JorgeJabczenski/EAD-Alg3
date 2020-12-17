@@ -14,7 +14,7 @@ tNodo *criarNodo(int chave);
 
 void emOrdem(tNodo *nodo);
 
-void nivel(tNodo *nodo, int n);
+void profundidade(tNodo *nodo, int n);
 
 int maior(int a, int b);
 

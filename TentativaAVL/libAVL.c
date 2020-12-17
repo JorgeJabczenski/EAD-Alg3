@@ -37,15 +37,15 @@ emOrdem(tNodo *nodo)
         emOrdem(nodo->direita);
     }
 }
-//==================== Nivel ====================//
+//==================== Profundidade ====================//
 void
-nivel(tNodo *nodo, int n)
+profundidade(tNodo *nodo, int n)
 {
     if (nodo != NULL)
     {
-        nivel(nodo->esquerda, n+1);
+        profundidade(nodo->esquerda, n+1);
         printf("%d,%d\n", nodo->chave, n);
-        nivel(nodo->direita , n+1);
+        profundidade(nodo->direita , n+1);
     }
 }
 //==================== Maior      -> Devolve o maior entre dois inteiros ====================//
@@ -118,7 +118,7 @@ tNodo
     int fatorB = fatorBalanceamento(nodo);
 
     /* Desbalanceado para a Direita */
-    if (fatorB == -2)
+    if (fatorB < -1)
     {
         /* Direita-Esquerda (ZigZag) */
         if (fatorBalanceamento(nodo->direita) > 0)
@@ -128,7 +128,7 @@ tNodo
     }
 
     /* Desbalanceado para a Esquerda */
-    if (fatorB == 2)
+    if (fatorB > 1)
     {
         /* Esquerda-Direita (ZigZag)*/
         if(fatorBalanceamento(nodo->esquerda) < 0)

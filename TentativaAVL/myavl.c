@@ -13,7 +13,7 @@ main(void)
     raiz = lerEntrada(raiz); 
 
     /* Imprimi os nodos com sua chave e nivel separados por vírgula */
-    nivel(raiz,0);
+    profundidade(raiz,0);
 
     return EXIT_SUCCESS;
 }
