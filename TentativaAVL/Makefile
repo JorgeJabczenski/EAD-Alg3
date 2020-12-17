@@ -1,12 +1,12 @@
 CC = gcc
-CFLAGS = -Wall -g
+CFLAGS = -Wall
 
 all: myavl
 
-myavl: main.o
+myavl: myavl.o libAVL.o
 
 clean:
 	rm -f *.o
 
 purge: clean
-	rm -f avl
+	rm -f myavl
