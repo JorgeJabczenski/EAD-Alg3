@@ -31,15 +31,17 @@ tNodo
     nodo->chave    = chave;
     nodo->altura   = 0;
     //nodo->fatorB   = 0;
+
+    return nodo;
 }
-//==================== EmOrdem    -> Imprime os Valores das chaves em Ordem
+//==================== emOrdem    -> Imprime os Valores das chaves em Ordem
 void 
 emOrdem(tNodo *nodo)
 {
     if (nodo != NULL)
     {
         emOrdem(nodo->esquerda);
-        printf("Chave = %03d | Pt = %08x | Esq = %08x | Dir = %08x | H = %d |\n", nodo->chave, nodo, nodo->esquerda, nodo->direita, nodo->altura);
+        printf("Chave = %03d | Pt = %08xu | Esq = %08x | Dir = %08x | H = %d |\n", nodo->chave, nodo, nodo->esquerda, nodo->direita, nodo->altura);
         emOrdem(nodo->direita);
     }
 }
