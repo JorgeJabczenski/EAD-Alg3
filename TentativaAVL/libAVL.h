@@ -1,3 +1,6 @@
+/* GRR20190372 & GRR20190367 */
+/* jlvj19      &      vtvd19 */
+
 #ifndef __LIBAVL__
 #define __LIBAVL__
 
@@ -31,8 +34,6 @@ tNodo *rotacaoDireita(tNodo *nodo);
 tNodo *balancearAVL(tNodo *nodo);
 
 tNodo *inserir(tNodo *nodo, int chave);
-
-tNodo *antecessor(tNodo *nodo);
 
 tNodo *excluir(tNodo *nodo, int chave);
 

@@ -157,13 +157,7 @@ tNodo
 
     return balancearAVL(nodo);
 }
-//==================== Antecessor -> Devolve o nodo antecessor ao nodo passado como argumento ====================//
-tNodo 
-*antecessor(tNodo *nodo)
-{   if (nodo->esquerda != NULL)
-        return(maximo(nodo->esquerda));
-    return NULL;
-}
+
 //==================== Excluir    -> Exclui um nodo a partir de uma chave ====================//
 tNodo
 *excluir(tNodo *nodo, int chave)
@@ -188,7 +182,8 @@ tNodo
         /* Caso com dois filhos, substituir pelo antecessor */
         else 
         {
-            tNodo *nodoAntecessor = antecessor(nodo);
+            /* Como sabemos que o nodo tem 2 filhos, podemos acessar o nodo->esquerda sem perigo de acessar uma área não alocada de memória */
+            tNodo *nodoAntecessor = maximo(nodo->esquerda);
             /* Substituir as chaves do nodo atual com o do Antecessor */
             nodo->chave = nodoAntecessor->chave;
             /* Excluir o Antecessor */

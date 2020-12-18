@@ -1,3 +1,6 @@
+#/* GRR20190372 & GRR20190367 */#
+#/* jlvj19      &      vtvd19 */#
+
 CC = gcc
 CFLAGS = -Wall -Wextra -pedantic
 
