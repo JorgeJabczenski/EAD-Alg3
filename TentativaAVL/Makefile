@@ -2,7 +2,7 @@
 #/* jlvj19      &      vtvd19 */#
 
 CC = gcc
-CFLAGS = -Wall -Wextra -pedantic
+CFLAGS = -Wall 
 
 all: myavl
 

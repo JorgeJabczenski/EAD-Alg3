@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "libAVL.h"
 
-//==================== CriarNodo  -> Aloca o espaço para um novo nodo ====================//
+//=========== CriarNodo  -> Aloca o espaço para um novo nodo ===========//
 tNodo
 *criarNodo(int chave)
 {
@@ -26,18 +26,19 @@ tNodo
 
     return nodo;
 }
-//==================== emOrdem    -> Imprime os Valores das chaves em Ordem ====================//
+//=========== emOrdem -> Imprime os Valores das chaves em Ordem ===========//
+/* Usado para verificação da corretude da árvore montada */
 void 
 emOrdem(tNodo *nodo)
 {
     if (nodo != NULL)
     {
         emOrdem(nodo->esquerda);
-        printf("Chave = %d ", nodo->chave);
+        printf("Chave = %d | Endereco = %p | Esq = %p | Dir = %p \n", nodo->chave, (void*) nodo, (void*) nodo->esquerda, (void*) nodo->direita);
         emOrdem(nodo->direita);
     }
 }
-//==================== Profundidade ====================//
+//=========== Profundidade -> Distancia da raiz até o nodo ===========//
 void
 profundidade(tNodo *nodo, int n)
 {
@@ -48,13 +49,13 @@ profundidade(tNodo *nodo, int n)
         profundidade(nodo->direita , n+1);
     }
 }
-//==================== Maior      -> Devolve o maior entre dois inteiros ====================//
+//=========== Maior -> Devolve o maior entre dois inteiros ===========//
 int 
 maior(int a, int b)
 {
     return (a > b) ? a : b;
 }
-//==================== Máximo     -> Devolve o maior nodo de uma árvore ====================//
+//=========== Máximo -> Devolve o nodo de maior chave de uma árvore ===========//
 tNodo
 *maximo(tNodo *nodo)
 {
@@ -63,7 +64,7 @@ tNodo
         temp = temp->direita;
     return temp;
 }
-//==================== Altura     -> Calcula a altura do nodo, NULL vale -1 ====================//
+//=========== Altura -> Calcula a altura do nodo, NULL vale -1 para o fator de balanceamento ===========//
 int
 altura(tNodo *nodo)
 {
@@ -71,7 +72,7 @@ altura(tNodo *nodo)
         return -1;
     return nodo->altura;
 }
-//==================== Fator de Balanceamento -> (Altura Esquerda - Altura Direita) ====================//
+//=========== Fator de Balanceamento -> (Altura Esquerda - Altura Direita) ===========//
 int 
 fatorBalanceamento(tNodo *nodo)
 {
@@ -79,7 +80,7 @@ fatorBalanceamento(tNodo *nodo)
         return 0;
     return (altura(nodo->esquerda) - altura(nodo->direita));
 }
-//==================== Rotação Esquerda ====================//
+//=========== Rotação Esquerda ===========//
 tNodo
 *rotacaoEsquerda(tNodo *nodo)
 {
@@ -95,7 +96,7 @@ tNodo
 
     return temp;
 }
-//==================== Rotação Direita ====================//
+//=========== Rotação Direita ===========//
 tNodo
 *rotacaoDireita(tNodo *nodo)
 {
@@ -111,7 +112,7 @@ tNodo
 
     return temp;
 }
-//==================== BalancearAVL -> Balanceia  a árvore ====================//
+//=========== BalancearAVL -> Balanceia  a árvore ===========//
 tNodo
 *balancearAVL(tNodo *nodo)
 {
@@ -138,7 +139,7 @@ tNodo
     }
     return nodo;
 }
-//==================== Inserir     -> Insere um novo nodo ====================//
+//=========== Inserir     -> Insere um novo nodo ===========//
 tNodo
 *inserir(tNodo *nodo, int chave)
 {
@@ -158,7 +159,7 @@ tNodo
     return balancearAVL(nodo);
 }
 
-//==================== Excluir    -> Exclui um nodo a partir de uma chave ====================//
+//=========== Excluir    -> Exclui um nodo a partir de uma chave ===========//
 tNodo
 *excluir(tNodo *nodo, int chave)
 {
