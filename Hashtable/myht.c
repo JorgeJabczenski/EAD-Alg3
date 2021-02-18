@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "hash.h"
-
-#define TAMMAX 11
-#define M      11
 
 int 
 main()
@@ -21,7 +16,9 @@ main()
         sscanf(line, "%c %d\n", &op,&n); // Separa da linha lida o operador e o número
         if (op == 'i') inserir(n, T1, T2);
         if (op == 'r') remover(n, T1, T2);
+        imprimir(T1, T2);
     }
+
 
     return EXIT_SUCCESS;
 }

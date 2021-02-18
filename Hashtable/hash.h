@@ -1,6 +1,12 @@
 #ifndef __HASH__
 #define __HASH__
 
+#include <stdio.h>
+#include <stdlib.h>
+
+#define TAMMAX 11
+#define M      11
+
 typedef struct celula{
     int num;
     int excluido;
