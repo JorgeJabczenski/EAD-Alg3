@@ -6,7 +6,7 @@ inicializaVetor(celula* v, int t)
     for (int i = 0; i < t; i++)
     {
         v[i].excluido = 0;
-        v[i].vazia    = 1;
+        v[i].vazio    = 1;
     }
 }
 
@@ -25,22 +25,19 @@ h2(int k, int m)
 }
 /************************/
 
-// seguindo a risca o algoritmo na especificao
-// retornar int ou outra coisa?
 int
 busca(int n, celula *T1, celula *T2)
 {
     int pos1 = h1(n,M);
     int pos2 = h2(n,M);
-    if(T1[pos1].vazia == 1)
-    {  
-        // para consistencia, retornar -1? ou tratar como bool o retorno?
-        return 0;
-    } else if(T1[pos1].vazia == 0) {
+
+    if (T1[pos1].num == n && !T1[pos1].excluido){
         return pos1;
-    } else {  // isso basta?
+    } else if (T2[pos2].num == n && !T2[pos2].vazio){  
         return pos2;
     }
+
+    return -1; // Posição inválida
     
 }
 
@@ -53,16 +50,18 @@ inserir(int n, celula *T1, celula *T2)
     pos1 = h1(n,M);
     pos2 = h2(n,M);  
 
-    if (T1[pos1].vazia == 1 || (T1[pos1].excluido == 1))
+    if (T1[pos1].vazio == 1 || (T1[pos1].excluido == 1))
     {
-        T1[pos1].num = n;
-        T1[pos1].vazia = 0;
+        T1[pos1].vazio    = 0;
         T1[pos1].excluido = 0;
     } else {
-        T2[h2(T1[pos1].num, M)].num = T1[pos1].num;
-        T2[h2(T1[pos1].num, M)].vazia = 0;
-        T1[pos1].num = n;
+        int novaPos = h2(T1[pos1].num, M);
+
+        T2[novaPos].num   = T1[pos1].num;
+        T2[novaPos].vazio = 0;
     }
+    
+    T1[pos1].num = n;
 }
 
 
@@ -73,43 +72,102 @@ remover(int n, celula *T1, celula *T2)
 
     pos1 = h1(n,M);
     pos2 = h2(n,M);
+
     // trata tabela 2 antes
-    if(T2[pos2].num == n){
-        // acho que nao precisa marcar como excluida na tabela 2?
-        // marcar com vazia?
-        T2[pos2].vazia = 1;
+    if(T2[pos2].num == n && !T2[pos2].vazio){
+        T2[pos2].vazio = 1;
     // entao checa a tabela 1
     } else if(T1[pos1].num == n){
         // conforme a especificao do trabalho
         T1[pos1].excluido = 1;
-    // necessario checar se nao existe? na especificao da a entender que nao
-    } else {
-        fprintf(stderr, "Chave %d nao encontrada", n);
-    }
+    } 
 }
 
-// impressao simples das tabelas lado a lado
 void
 imprimir (celula *T1, celula *T2)
 {
-    int i, n1, n2;
-    
-    printf("\tT1\tT2\n");
+    int cont;
+    /* As duas tabelas podem estar completas, por isso o 2M */
+    int impressao[2*M][3];
+
+    cont = 0;
+
+    for (int i = 0; i < M; i++)
+    {
+        impressao[i][0] = 0; // Número
+        impressao[i][1] = 0; // Tabela (1 ou 2)
+        impressao[i][2] = 0; // Posição
+    }
+
+    /* Obtém todos os valores em todas as tabelas, guardando seyu valor, tabela e posição */
+    for (int i = 0; i < M; i++)
+    {
+        if (!T1[i].vazio && !T1[i].excluido)
+        {
+            impressao[cont]  [0] = T1[i].num;
+            impressao[cont]  [1] = 1;
+            impressao[cont++][2] = i;
+        }
+        if (!T2[i].vazio)
+        {
+            impressao[cont]  [0] = T2[i].num;
+            impressao[cont]  [1] = 2;
+            impressao[cont++][2] = i;
+        }
+    }
+
+    /* Ordena por Insertion Sort, usando o primeiro valor como parâmetro */
+    for (int i = 1; i < cont; i++)
+    {
+        int key[3];
+        
+        key[0] = impressao[i][0];
+        key[1] = impressao[i][1];
+        key[2] = impressao[i][2];
+        
+        int j = i - 1;
+
+        while ((j >= 0) && (impressao[j][0] > key[0]))
+        {
+            impressao[j+1][0] = impressao[j][0];
+            impressao[j+1][1] = impressao[j][1];
+            impressao[j+1][2] = impressao[j][2];
+
+            j--;
+        }
+
+        impressao[j+1][0] = key[0];
+        impressao[j+1][1] = key[1];
+        impressao[j+1][2] = key[2];
+    }
+
+
+    /* Imprime a tabela final ordenada */
+    for (int i = 0; i < cont; i++)
+    {
+        printf("%d,T%d,%d\n", impressao[i][0], impressao[i][1], impressao[i][2]);
+    }
+
+    /*
+    int e1,e2,v1,v2;
+
+    printf("\tT1\t\tT2\n");
     for(i = 0; i < M; i++){
         // -1 para significar NULL?
-        if(T1[i].excluido || T1[i].vazia)
+        if(T1[i].excluido || T1[i].vazio)
         {
             n1 = -1;
         } else {
             n1 = T1[i].num;
         }
         // entra o caso de nao saber o que marcar na exclusao de T2
-        if(T2[i].vazia)
+        if(T2[i].vazio)
         {
             n2 = -1;
         } else {
             n2 = T2[i].num;
         }
-        printf("%d\t%d\t%d\n", i,n1, n2);
-    }
+        printf("%d\t%d - %d %d\t%d - %d %d\n", i,n1,T1[i].excluido, T1[i].vazio, n2,T2[i].excluido, T2[i].vazio);
+    }*/
+
 }

@@ -4,18 +4,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define TAMMAX 11
-#define M      11
+#define M 11
 
 typedef struct celula{
     int num;
     int excluido;
-    int vazia;
+    int vazio;
 } celula;
 
 void inicializaVetor(celula* v, int t);
 
-int  h1(int k, int m);
+int h1(int k, int m);
 
 int h2(int k, int m);
 
