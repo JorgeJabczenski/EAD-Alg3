@@ -41,7 +41,6 @@ busca(int n, celula *T1, celula *T2)
     
 }
 
-
 void 
 inserir(int n, celula *T1, celula *T2)
 {
@@ -63,7 +62,6 @@ inserir(int n, celula *T1, celula *T2)
     
     T1[pos1].num = n;
 }
-
 
 void 
 remover(int n, celula *T1, celula *T2)
@@ -147,27 +145,4 @@ imprimir (celula *T1, celula *T2)
     {
         printf("%d,T%d,%d\n", impressao[i][0], impressao[i][1], impressao[i][2]);
     }
-
-    /*
-    int e1,e2,v1,v2;
-
-    printf("\tT1\t\tT2\n");
-    for(i = 0; i < M; i++){
-        // -1 para significar NULL?
-        if(T1[i].excluido || T1[i].vazio)
-        {
-            n1 = -1;
-        } else {
-            n1 = T1[i].num;
-        }
-        // entra o caso de nao saber o que marcar na exclusao de T2
-        if(T2[i].vazio)
-        {
-            n2 = -1;
-        } else {
-            n2 = T2[i].num;
-        }
-        printf("%d\t%d - %d %d\t%d - %d %d\n", i,n1,T1[i].excluido, T1[i].vazio, n2,T2[i].excluido, T2[i].vazio);
-    }*/
-
 }
