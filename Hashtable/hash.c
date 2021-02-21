@@ -47,10 +47,9 @@ busca(int n, celula *T1, celula *T2)
 void 
 inserir(int n, celula *T1, celula *T2)
 {
-    int pos1, pos2;
+    int pos1;
 
     pos1 = h1(n,M);
-    pos2 = h2(n,M);  
 
     if (T1[pos1].vazio == 1 || (T1[pos1].excluido == 1))
     {
